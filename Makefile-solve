@@ -1,0 +1,56 @@
+OBJECTDIR= ./solve-objects
+
+COMPILE= g++ -Wall -I ./include -I ./include/solve -g -c $< -o $@  
+
+SOLVEFILES = $(OBJECTDIR)/solve.o \
+             $(OBJECTDIR)/solvefns.o \
+             $(OBJECTDIR)/commonfns.o \
+             $(OBJECTDIR)/fold.o \
+             $(OBJECTDIR)/decompose.o \
+             $(OBJECTDIR)/bigint.o \
+             $(OBJECTDIR)/bigreal.o \
+             $(OBJECTDIR)/surd.o \
+             $(OBJECTDIR)/n_limit.o \
+             $(OBJECTDIR)/util.o \
+             $(OBJECTDIR)/debug.o
+
+
+solve: $(SOLVEFILES)
+	g++ -o solve $(SOLVEFILES) -lstdc++
+
+$(OBJECTDIR)/util.o: ./src/util.cpp ./include/util.h
+	$(COMPILE)
+
+$(OBJECTDIR)/n_limit.o: ./src/n_limit.cpp ./include/n_limit.h
+	$(COMPILE)
+
+$(OBJECTDIR)/solve.o: ./src/solve.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/solvefns.o: ./src/solvefns.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/commonfns.o: ./src/commonfns.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/fold.o: ./src/fold.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/decompose.o: ./src/decompose.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/bigint.o: ./src/bigint.cpp ./include/bigint.h
+	$(COMPILE)
+
+$(OBJECTDIR)/bigreal.o: ./src/bigreal.cpp ./include/bigreal.h
+	$(COMPILE)
+
+$(OBJECTDIR)/surd.o: ./src/surd.cpp ./include/surd.h
+	$(COMPILE)
+
+$(OBJECTDIR)/debug.o: ./src/debug.cpp 
+	$(COMPILE)
+
+clean:
+	rm -f $(OBJECTDIR)/*.o
+

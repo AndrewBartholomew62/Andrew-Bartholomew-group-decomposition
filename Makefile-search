@@ -1,0 +1,34 @@
+OBJECTDIR= ./search-objects
+
+COMPILE= g++ -Wall -I ./include -I ./include/search -g -c $< -o $@  
+
+SEARCHFILES = $(OBJECTDIR)/search.o \
+              $(OBJECTDIR)/decompose.o \
+              $(OBJECTDIR)/searchfns.o \
+              $(OBJECTDIR)/commonfns.o \
+              $(OBJECTDIR)/util.o \
+              $(OBJECTDIR)/debug.o
+
+search: $(SEARCHFILES)
+	g++ -o search $(SEARCHFILES) -lstdc++
+
+$(OBJECTDIR)/search.o: ./src/search.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/decompose.o: ./src/decompose.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/searchfns.o: ./src/searchfns.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/commonfns.o: ./src/commonfns.cpp ./include/*
+	$(COMPILE)
+
+$(OBJECTDIR)/util.o: ./src/util.cpp ./include/util.h
+	$(COMPILE)
+
+$(OBJECTDIR)/debug.o: ./src/debug.cpp 
+	$(COMPILE)
+
+clean:
+	rm -f $(OBJECTDIR)/*.o
